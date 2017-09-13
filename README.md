@@ -49,3 +49,21 @@ Here is a brief overview of what happens when you run the code files:
 2. `FusionEKF.cpp` takes the sensor data and initializes variables and updates variables. The Kalman filter equations are not in this file. `FusionEKF.cpp` has a variable called ekf_, which is an instance of a KalmanFilter class. The `ekf_` will hold the matrix and vector values. You will also use the `ekf_` instance to call the predict and update equations.
 3. The `KalmanFilter` class is defined in `kalman_filter.cpp` and `kalman_filter.h`. I only modified `kalman_filter.cpp`, which contains functions for the prediction and update steps.
 
+## Data
+
+This repo contains one data file:
+
+* `obj_pose-laser-radar-synthetic-input.txt`
+
+The simulator will be using this data file, and feed main.cpp values from it one line at a time.
+
+Each row represents a sensor measurement where the first column tells you if the measurement comes from radar (R) or lidar (L).
+
+For a row containing radar data, the columns are: `sensor_type`, `rho_measured`, `phi_measured`, `rhodot_measured`, `timestamp`, `x_groundtruth`, `y_groundtruth`, `vx_groundtruth`, `vy_groundtruth`, `yaw_groundtruth`, `yawrate_groundtruth`.
+
+For a row containing lidar data, the columns are: `sensor_type`, `x_measured`, `y_measured`, `timestamp`, `x_groundtruth`, `y_groundtruth`, `vx_groundtruth`, `vy_groundtruth`, `yaw_groundtruth`, `yawrate_groundtruth`.
+
+Whereas radar has three measurements (rho, phi, rhodot), lidar has two measurements (x, y).
+
+I used the measurement values and timestamp in my Kalman filter algorithm. Groundtruth, which represents the actual path the bicycle took, is for calculating root mean squared error.
+
