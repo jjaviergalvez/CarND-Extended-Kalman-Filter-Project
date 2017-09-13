@@ -1,20 +1,25 @@
 # Extended Kalman Filter Project Starter Code
-Self-Driving Car Engineer Nanodegree Program
+
+Project for the Self-Driving Car Engineer Nanodegree Program
 
 ---
+
+## Overview
+
+In this project I implemented an Extended Kalman Filter algorithm in C++ capable of tracking a pedestrian's motion in two dimensions.
 
 ## Dependencies
 
 * cmake >= 3.5
- * All OSes: [click here for installation instructions](https://cmake.org/install/)
+    * All OSes: [click here for installation instructions](https://cmake.org/install/)
 * make >= 4.1
-  * Linux: make is installed by default on most Linux distros
-  * Mac: [install Xcode command line tools to get make](https://developer.apple.com/xcode/features/)
-  * Windows: [Click here for installation instructions](http://gnuwin32.sourceforge.net/packages/make.htm)
+    * Linux: make is installed by default on most Linux distros
+    * Mac: [install Xcode command line tools to get make](https://developer.apple.com/xcode/features/)
+    * Windows: [Click here for installation instructions](http://gnuwin32.sourceforge.net/packages/make.htm)
 * gcc/g++ >= 5.4
-  * Linux: gcc / g++ is installed by default on most Linux distros
-  * Mac: same deal as make - [install Xcode command line tools]((https://developer.apple.com/xcode/features/)
-  * Windows: recommend using [MinGW](http://www.mingw.org/)
+    * Linux: gcc / g++ is installed by default on most Linux distros
+    * Mac: same deal as make - [install Xcode command line tools]((https://developer.apple.com/xcode/features/)
+    * Windows: recommend using [MinGW](http://www.mingw.org/)
 
 ## Basic Build Instructions
 
@@ -26,60 +31,21 @@ Self-Driving Car Engineer Nanodegree Program
    some sample inputs in 'data/'.
     - eg. `./ExtendedKF ../data/sample-laser-radar-measurement-data-1.txt output.txt`
 
-## Editor Settings
 
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
+## Files in the src Folder
 
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
+* `main.cpp` - communicates with the Term 2 Simulator receiving data measurements, calls a function to run the Kalman filter, calls a function to calculate RMSE
+* `FusionEKF.cpp` - initializes the filter, calls the predict function, calls the update function
+* `kalman_filter.cpp` - defines the predict function, the update function for lidar, and the update function for radar
+* `tools.cpp` - function to calculate RMSE and the Jacobian matrix
 
-## Code Style
+The only files I modified are `FusionEKF.cpp`, `kalman_filter.cpp`, and `tools.cpp` where TODOs appear.
 
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
+## How the Files Relate to Each Other
 
-## Generating Additional Data
+Here is a brief overview of what happens when you run the code files:
 
-This is optional!
+1. `Main.cpp` reads in the data and sends a sensor measurement to FusionEKF.cpp
+2. `FusionEKF.cpp` takes the sensor data and initializes variables and updates variables. The Kalman filter equations are not in this file. `FusionEKF.cpp` has a variable called ekf_, which is an instance of a KalmanFilter class. The `ekf_` will hold the matrix and vector values. You will also use the `ekf_` instance to call the predict and update equations.
+3. The `KalmanFilter` class is defined in `kalman_filter.cpp` and `kalman_filter.h`. I only modified `kalman_filter.cpp`, which contains functions for the prediction and update steps.
 
-If you'd like to generate your own radar and lidar data, see the
-[utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities) for
-Matlab scripts that can generate additional data.
-
-## Project Instructions and Rubric
-
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
-
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/12dd29d8-2755-4b1b-8e03-e8f16796bea8)
-for instructions and the project rubric.
-
-## Hints!
-
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
-
-## Call for IDE Profiles Pull Requests
-
-Help your fellow students!
-
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to we ensure
-that students don't feel pressured to use one IDE or another.
-
-However! We'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
-
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
-
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
-
-Regardless of the IDE used, every submitted project must
-still be compilable with cmake and make.
